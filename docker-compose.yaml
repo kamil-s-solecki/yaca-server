@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+
+    app:
+        build:
+            context: .
+        image: flask-python
+        volumes:
+            - ./src:/usr/src/app
+        ports:
+            - 5000:5000
+
+    db:
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: flask
+            POSTGRES_USER: flask
+            POSTGRES_DB: flask
+
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: pgadmin
+            PGADMIN_DEFAULT_PASSWORD: pgadmin
+            PGADMIN_LISTEN_PORT: 8080
+        ports:
+            - 8080:8080
+

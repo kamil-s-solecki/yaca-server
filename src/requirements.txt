@@ -1,0 +1,8 @@
+Flask
+flask-restful
+Flask-Script
+psycopg2
+Flask-SQLAlchemy
+
+flake8
+autopep8
