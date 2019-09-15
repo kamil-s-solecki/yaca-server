@@ -1,12 +1,12 @@
 from flask_restful import Resource
-from flask import request
 from app.domain.token import generate_token
+from app.request_data.user import UserRequestData
 
 
 class UserResource(Resource):
     def post(self):
-        json = request.get_json()
+        data = UserRequestData().parse_request()
         return {
             'token': generate_token(),
-            'username': json['username']
+            'username': data['username']
         }

@@ -19,6 +19,22 @@ class CreateUserTest(TestCase):
 
         self.assertNotEqual(first_response['token'], second_response['token'])
 
+    def test_username_is_required(self):
+        response = api.post_user({})
+
+        self.assertEqual(400, response.status_code)
+        json = response.json()
+        self.assertEqual("This value cannot be blank",
+                         json['message']['username'])
+
+    def test_username_cannot_be_blank(self):
+        response = api.post_user({'username': '  '})
+
+        self.assertEqual(400, response.status_code)
+        json = response.json()
+        self.assertEqual("This value cannot be blank",
+                         json['message']['username'])
+
 
 if __name__ == '__main__':
     unittest.main()
