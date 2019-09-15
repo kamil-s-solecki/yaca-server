@@ -1,6 +1,7 @@
 from flask_script import Manager
 
 from app import app
+from sio import sio
 import fixtures
 
 manager = Manager(app)
@@ -8,7 +9,7 @@ manager = Manager(app)
 
 @manager.command
 def start():
-    app.run(host='0.0.0.0')
+    sio.run(app, host='0.0.0.0')
 
 
 @manager.command

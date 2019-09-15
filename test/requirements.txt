@@ -1,2 +1,4 @@
 requests
+python-socketio[client]
+
 flake8

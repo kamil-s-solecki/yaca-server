@@ -3,6 +3,7 @@ flask-restful
 Flask-Script
 psycopg2
 Flask-SQLAlchemy
+flask-socketio
 
 flake8
 autopep8
