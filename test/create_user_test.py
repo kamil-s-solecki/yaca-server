@@ -35,6 +35,14 @@ class CreateUserTest(TestCase):
         self.assertEqual("This value cannot be blank",
                          json['message']['username'])
 
+    def test_username_cannot_be_longer_than_80_characters(self):
+        response = api.post_user({'username': 'a' * 81})
+
+        self.assertEqual(400, response.status_code)
+        json = response.json()
+        self.assertEqual("This value must have 80 characters or less",
+                         json['message']['username'])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,7 @@
 import unittest
 from utils.test_case import TestCase
 from utils.socket import Socket
+from utils.api import api
 
 
 class SeflIntroductionTest(TestCase):
@@ -17,7 +18,7 @@ class SeflIntroductionTest(TestCase):
 
         self.assertTrue(connection_established['success'])
 
-    def test_wrong_token_causes_disconnection(self):
+    def test_wrong_token_causes_incorrect_token_event(self):
         socket = Socket()
         error = {}
 
@@ -33,6 +34,25 @@ class SeflIntroductionTest(TestCase):
         socket.connect()
 
         self.assertEqual('Incorrect token', error['message'])
+
+    def test_correct_token_causes_authorzed_event(self):
+        socket = Socket()
+        result = {'event_emmited': False}
+        token = api.post_user(
+            {'username': 'introduction_test_user'}).json()['token']
+
+        def connect():
+            socket.introduce_yourself(token)
+        socket.on_connect(connect)
+
+        def on_authorized(data):
+            result['event_emmited'] = True
+            socket.disconnect()
+        socket.on('authorized', on_authorized)
+
+        socket.connect()
+
+        self.assertTrue(result['event_emmited'])
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 def max_length(n):
     def max_length_validator(value):
-        if len(value) > n:
+        if value and len(value) > n:
             return "This value must have {} characters or less".format(n)
         return None
 
