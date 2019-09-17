@@ -35,7 +35,7 @@ class SeflIntroductionTest(TestCase):
 
         self.assertEqual('Incorrect token', error['message'])
 
-    def test_correct_token_causes_authorzed_event(self):
+    def test_correct_token_causes_authorized_event(self):
         socket = Socket()
         result = {'event_emmited': False}
         token = api.post_user(
