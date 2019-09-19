@@ -26,7 +26,8 @@ class RequestData():
         pass
 
     def add_field(self, name, type=str, required=False,
-                  help=None, validators=None):
-        self.parser.add_argument(name, type=type, help=help, required=required)
+                  help=None, validators=None, location='json'):
+        self.parser.add_argument(
+            name, type=type, help=help, required=required, location=location)
         if validators:
             self.validators[name] = validators
