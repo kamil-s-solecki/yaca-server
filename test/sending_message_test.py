@@ -9,7 +9,7 @@ class NewContactHandshakeTest(TestCase):
         self.user_token = api.post_user(
             {'username': 'first_user'}).json()['token']
         self.other_user_token = api.post_user(
-            {'username': 'first_user'}).json()['token']
+            {'username': 'second_user'}).json()['token']
         contact_init_token = api.get_contact_init_token(
             self.user_token).json()['contact_init_token']
         get_pin_response = api.get_contact_pin(
@@ -66,6 +66,10 @@ class NewContactHandshakeTest(TestCase):
 
         self.assertEqual('some message',
                          result['data']['message'])
+        self.assertEqual(self.contact_token,
+                         result['data']['contact'])
+        self.assertEqual('first_user',
+                         result['data']['username'])
 
 
 if __name__ == '__main__':
