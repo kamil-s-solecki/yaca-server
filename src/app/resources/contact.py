@@ -10,7 +10,7 @@ from app.models.user import User
 class ContactTokenResource(Resource):
     def get(self):
         data = ContactTokenRequestData().parse_request()
-        user = User.query.filter_by(token=data['user_token']).first()
+        user = User.query.filter_by(token=data['User-Token']).first()
         contact = Contact(None, generate_token(), user)
         contact.store()
         return {"contact_init_token": contact.init_token}
@@ -19,7 +19,7 @@ class ContactTokenResource(Resource):
 class ContactPinResource(Resource):
     def get(self):
         data = GetContactPinRequestData().parse_request()
-        user = User.query.filter_by(token=data['user_token']).first()
+        user = User.query.filter_by(token=data['User-Token']).first()
         contact = Contact.query.filter_by(
             init_token=data["contact_init_token"]).first()
         contact.acceptor_id = user.id

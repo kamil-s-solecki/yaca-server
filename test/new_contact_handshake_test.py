@@ -11,7 +11,7 @@ class NewContactHandshakeTest(TestCase):
     def test_creating_contact_init_token_for_invalid_user(self):
         response = api.get_contact_init_token('incorrect token').json()
 
-        self.assertEqual("Incorrect token", response['message']['user_token'])
+        self.assertEqual("Incorrect token", response['message']['User-Token'])
 
     def test_creating_contact_init_token_for_valid_user(self):
         response = api.get_contact_init_token(self.user_token).json()
