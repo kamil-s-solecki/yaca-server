@@ -20,9 +20,10 @@ class Api():
     def get_contact_init_token(self, user_token):
         return self.get('/contacts/tokens/init', {'user_token': user_token})
 
-    def get_contact_pin(self, contact_init_token):
+    def get_contact_pin(self, contact_init_token, user_token):
         return self.get('/contacts/pins',
-                        {'contact_init_token': contact_init_token})
+                        {'contact_init_token': contact_init_token,
+                         'user_token': user_token})
 
     def post_contact_pin(self, pin):
         return self.post('/contacts/pins',

@@ -19,7 +19,8 @@ class NewContactHandshakeTest(TestCase):
         self.assertNotEmptyString(response['contact_init_token'])
 
     def test_getting_contact_pin_for_invalid_contact_init_token(self):
-        response = api.get_contact_pin('incorrect token').json()
+        response = api.get_contact_pin(
+            'incorrect token', self.user_token).json()
 
         self.assertEqual('No contact exists for given contact token',
                          response['message']['contact_init_token'])
@@ -28,7 +29,8 @@ class NewContactHandshakeTest(TestCase):
         contact_init_token = api.get_contact_init_token(
             self.user_token).json()['contact_init_token']
 
-        response = api.get_contact_pin(contact_init_token).json()
+        response = api.get_contact_pin(
+            contact_init_token, self.user_token).json()
 
         self.assertRegex(response['pin'], r'^[0-9][0-9][0-9][0-9][0-9]$')
 
@@ -36,7 +38,8 @@ class NewContactHandshakeTest(TestCase):
         contact_init_token = api.get_contact_init_token(
             self.user_token).json()['contact_init_token']
 
-        response = api.get_contact_pin(contact_init_token).json()
+        response = api.get_contact_pin(
+            contact_init_token, self.user_token).json()
 
         self.assertNotEmptyString(response['contact_token'])
 
@@ -50,7 +53,7 @@ class NewContactHandshakeTest(TestCase):
         contact_init_token = api.get_contact_init_token(
             self.user_token).json()['contact_init_token']
         get_pin_response = api.get_contact_pin(
-            contact_init_token).json()
+            contact_init_token, self.user_token).json()
 
         post_pin_response = api.post_contact_pin(
             get_pin_response['pin']).json()

@@ -13,6 +13,8 @@ class GetContactPinRequestData(RequestData):
     def add_fields(self):
         self.add_field('contact_init_token', location='args',
                        validators=[valid_contact_init_token()])
+        self.add_field('user_token', location='args',
+                       validators=[valid_user_token()])
 
 
 class PostContactPinRequestData(RequestData):
