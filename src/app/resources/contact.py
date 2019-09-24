@@ -26,9 +26,16 @@ class ContactPinResource(Resource):
         contact.pin = generate_pin()
         contact.token = generate_token()
         contact.store()
-        return {"pin": contact.pin, "contact_token": contact.token}
+        return {
+            "pin": contact.pin,
+            "contact_token": contact.token,
+            "username": contact.initiator.username,
+        }
 
     def post(self):
         data = PostContactPinRequestData().parse_request()
         contact = Contact.query.filter_by(pin=data["pin"]).first()
-        return {"contact_token": contact.token}
+        return {
+            "contact_token": contact.token,
+            "username": contact.acceptor.username,
+        }
